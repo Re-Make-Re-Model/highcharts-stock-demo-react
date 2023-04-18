@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Highcharts Demo",
+  "name": "Highcharts Demo with React",
   "icons": [
     {
       "src": "favicon.ico",
