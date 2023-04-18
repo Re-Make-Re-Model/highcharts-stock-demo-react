@@ -8,39 +8,49 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  Build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: set nodejs env
+      - name: Set Nodejs Env
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        shell: bash
-        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
-
-      - name: Cache npm dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       - name: Install
         run: npm install
 
       - name: Test
         run: npm run test
-        
+
       - name: Build
         run: npm run build
+
+      - name: Upload Files 
+      uses: actions/upload-artifact@v3
+      with: 
+        name: build-pages
+        path: build
+        retention-days: 1
+  
+  Depoly:
+    needs: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download Build Files
+        uses: actions/download-artifact@v3
+        with:
+          name: build-pages
+          path: build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v4
