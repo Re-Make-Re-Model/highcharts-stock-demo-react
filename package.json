@@ -1,5 +1,6 @@
 {
   "name": "highcharts-stock-demo-react",
+  "homepage": "https://github.com/Re-Make-Re-Model/highcharts-stock-demo-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
