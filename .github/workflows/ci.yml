@@ -33,12 +33,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install and Build
-        run: |
-          npm install
-          npm run build
+      - name: Install
+        run: npm install
 
-      - name: Deploy 🚀
+      - name: Test
+        run: npm run test
+        
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           TOKEN: ${{ secrets.ACCESS_TOKEN }}
