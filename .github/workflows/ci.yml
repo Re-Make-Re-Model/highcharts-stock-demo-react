@@ -45,12 +45,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Download Build Files
-        uses: actions/download-artifact@v3
-        with:
-          name: build-pages
-          path: build
+      # - name: Download Build Files
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: build-pages
+      #     path: build
 
+      - name: Download Build Files
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow_conclusion: success
+          name: build-pages
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
