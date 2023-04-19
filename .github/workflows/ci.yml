@@ -32,11 +32,11 @@ jobs:
         run: npm run build
 
       - name: Upload Files 
-      uses: actions/upload-artifact@v3
-      with: 
-        name: build-pages
-        path: build
-        retention-days: 1
+        uses: actions/upload-artifact@v3
+        with: 
+          name: build-pages
+          path: build
+          retention-days: 1
   
   Depoly:
     needs: Build
