@@ -1,8 +1,5 @@
 name: Deploy React App to Github Page
 on:
-  push:
-    branches: 
-      - main
   pull_request:
     branches: 
       - main
@@ -38,9 +35,10 @@ jobs:
           path: build
           retention-days: 1
   
-  Depoly:
+  Depoly-After-Merge:
     needs: Build
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
 
     steps:
       - name: Checkout
